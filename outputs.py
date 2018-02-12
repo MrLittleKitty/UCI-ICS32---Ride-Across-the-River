@@ -4,8 +4,13 @@ import network
 
 class Steps:
     def print_output(self, locations: [str]) -> None:
+        maneuvers = network.get_directions(locations)
+        if len(maneuvers) == 0:
+            return
 
-        return
+        print('DIRECTIONS')
+        for maneuver in maneuvers:
+            print(maneuver)
 
 
 class TotalDistance:
@@ -34,7 +39,7 @@ class LatLong:
             return
 
         print('LATLONGS')
-        for lat,long in latLongs:
+        for lat, long in latLongs:
             latString = '{:.2f}'.format(abs(lat))
             longString = '{:.2f}'.format(abs(long))
             if lat > 0:
@@ -47,10 +52,16 @@ class LatLong:
             else:
                 longString += 'W'
 
-            print(latString+' '+longString)
+            print(latString + ' ' + longString)
 
 
 class Elevation:
     def print_output(self, locations: [str]) -> None:
-        return
+        elevations = network.get_elevations(locations)
+        if len(elevations) == 0:
+            return
 
+        print('ELEVATIONS')
+        for elevation in elevations:
+            print(str(int(round(elevation, 0))))
+        return
