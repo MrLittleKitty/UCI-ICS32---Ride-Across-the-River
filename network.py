@@ -12,6 +12,11 @@ with open("mapquest.key") as file:
 
 
 def _get_directions_json(locations: [str]) -> object:
+    """
+    Makes an HTTP request to mapquest directions API for a route and then returns a json object for the response
+    :param locations: The locations to get directions for
+    :return: A json object that is the response from the mapquest directions API
+    """
     params = [('key', _api_key), ('from', locations[0])]
     for index in range(1, len(locations)):
         params.append(('to', locations[index]))
@@ -22,6 +27,11 @@ def _get_directions_json(locations: [str]) -> object:
 
 
 def _get_lat_longs(jsonResponse: object) -> [(decimal, decimal)]:
+    """
+    Gets the latitude and longitude for each location in the given json response
+    :param jsonResponse: The json response object from the mapquest directions API
+    :return: A list of tuples where each tuple is the latitude and the longitude for a location
+    """
     latLongs = []
     for index in range(len(jsonResponse['route']['locations'])):
         latLong = jsonResponse['route']['locations'][index]['latLng']
@@ -33,6 +43,11 @@ def _get_lat_longs(jsonResponse: object) -> [(decimal, decimal)]:
 
 
 def _check_directions_status(json: object) -> bool:
+    """
+    Checks the status code of the json object from the mapquest directions API and prints an error if necessary
+    :param json: The json response object from the mapquest directions API
+    :return: True if the json response is normal. False if there is an error and a message has been output
+    """
     status = json['info']['statuscode']
     if status == 0:
         return True
@@ -46,6 +61,11 @@ def _check_directions_status(json: object) -> bool:
 
 
 def get_elevations(locations: [str]) -> [decimal]:
+    """
+    Gets the elevation for each of the given locations
+    :param locations: The locations to get the elevations for
+    :return: A list of decimals where each decimal is the elevation of the corresponding location
+    """
     directionsResponse = _get_directions_json(locations)
     if not _check_directions_status(directionsResponse):
         return None
@@ -67,6 +87,11 @@ def get_elevations(locations: [str]) -> [decimal]:
 
 
 def get_directions(locations: [str]) -> [str]:
+    """
+    Gets the detailed maneuvers for getting to each of the given locations
+    :param locations: The locations to get directions for
+    :return: A list of strings where each string is a maneuver to take to get to the given locations
+    """
     response = _get_directions_json(locations)
     if not _check_directions_status(response):
         return []
@@ -81,6 +106,11 @@ def get_directions(locations: [str]) -> [str]:
 
 
 def get_lats_longs(locations: [str]) -> [(decimal, decimal)]:
+    """
+    Gets the latitude and longitude for each of the given locations
+    :param locations: The locations to get the latitudes and longitudes for
+    :return: A list of tuples where each tuple is the latitude and longitude of the corresponding location
+    """
     response = _get_directions_json(locations)
     if not _check_directions_status(response):
         return []
@@ -88,13 +118,23 @@ def get_lats_longs(locations: [str]) -> [(decimal, decimal)]:
 
 
 def get_total_time(locations: [str]) -> int:
+    """
+    Gets the total time required on a trip to all of the given locations
+    :param locations: The locations to get the total trip time for
+    :return: An integer that is the number of minutes required to travel to all the given locations
+    """
     response = _get_directions_json(locations)
     if not _check_directions_status(response):
         return -1
     return response['route']['time']
 
 
-def get_total_distance(locations: [str]) -> int:
+def get_total_distance(locations: [str]) -> decimal:
+    """
+    Gets the total distance that would be travelled on a trip to all the given locations
+    :param locations: The locations to get the total trip distance for
+    :return: A decimal that is the number of miles that would be travelled on a trip to all the given locations
+    """
     response = _get_directions_json(locations)
     if not _check_directions_status(response):
         return -1

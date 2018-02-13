@@ -30,6 +30,11 @@ def start_program() -> None:
 
 
 def get_output_class(type: str) -> object:
+    """
+    Creates an instance of the output class given the type string
+    :param type: The type of output that is needed
+    :return: An instance of an output class
+    """
     if type.upper() == 'STEPS':
         return outputs.Steps()
     elif type.upper() == 'TOTALDISTANCE':
@@ -43,6 +48,11 @@ def get_output_class(type: str) -> object:
 
 
 def get_input_strings(number: int) -> [str]:
+    """
+    Gets a the given number of strings from the standard input and returns them as a list
+    :param number: The number of strings to get from the input
+    :return: A list of strings retrieved from the standard input
+    """
     returnList = []
     for i in range(number):
         line = input().strip()
@@ -51,6 +61,10 @@ def get_input_strings(number: int) -> [str]:
 
 
 def get_input_integer() -> int:
+    """
+    Gets an integer from the standard input
+    :return: The integer retrieved from the standard input
+    """
     value = input().strip()
     return int(value)
 

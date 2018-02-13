@@ -4,6 +4,10 @@ import network
 
 class Steps:
     def print_output(self, locations: [str]) -> None:
+        """
+        Prints a detailed output of the maneuvers required to get to all the given locations
+        :param locations: The locations to get detailed maneuver data for
+        """
         maneuvers = network.get_directions(locations)
         if len(maneuvers) == 0:
             return
@@ -15,6 +19,10 @@ class Steps:
 
 class TotalDistance:
     def print_output(self, locations: [str]) -> None:
+        """
+        Prints the total distance of the route to all the given locations
+        :param locations: The locations to get the total route distance for
+        """
         distance = network.get_total_distance(locations)
         if distance == -1:
             return
@@ -24,6 +32,10 @@ class TotalDistance:
 
 class TotalTime:
     def print_output(self, locations: [str]) -> None:
+        """
+        Prints the total time of the route to all the given locations
+        :param locations: The locations to get the total route time for
+        """
         totalTimeInSeconds = network.get_total_time(locations)
         if totalTimeInSeconds == -1:
             return
@@ -34,6 +46,10 @@ class TotalTime:
 
 class LatLong:
     def print_output(self, locations: [str]) -> None:
+        """
+        Prints the latitude and longitude for each of the given locations
+        :param locations: The locations to print the latitudes and longitudes for
+        """
         latLongs = network.get_lats_longs(locations)
         if len(latLongs) == 0:
             return
@@ -57,6 +73,10 @@ class LatLong:
 
 class Elevation:
     def print_output(self, locations: [str]) -> None:
+        """
+        Prints the elevation for each each of the given locations
+        :param locations: The locations to print the elevations for
+        """
         elevations = network.get_elevations(locations)
         if len(elevations) == 0:
             return
