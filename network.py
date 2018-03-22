@@ -1,14 +1,9 @@
-# Eric Wolfe 76946154 eawolfe@uci.edu
 import urllib.parse as parse
 import urllib.request as request
 import decimal
 import json
 
-_api_key = ""
-
-# TODO---This needs to be removed before submitting the final project. Replace with hardcoded api key field
-with open("mapquest.key") as file:
-    _api_key = file.readline()
+_api_key = "API_KEY_HERE"
 
 
 def _get_directions_json(locations: [str]) -> object:
